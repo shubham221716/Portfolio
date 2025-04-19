@@ -353,7 +353,7 @@ img {
 /* Timeline Styles */
 #timeline {
   padding: 60px 0;
-  background: #f9f9f9;
+  background: #ffffff;
 }
 
 .section-title {
@@ -552,6 +552,9 @@ img {
       border-color: transparent white transparent transparent;
   }
 }
+
+
+
 /*-------------------------------------
          #End Timeline Rules
 -------------------------------------*/
@@ -1202,7 +1205,10 @@ article:has(:hover, :focus) {
   background-color: #1e1e1e;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
-
+[data-theme="dark"] #timeline {
+  background-color: #1e1e1e;
+ 
+}
 [data-theme="dark"] .nav__link {
   color: #f0f0f0;
 }
