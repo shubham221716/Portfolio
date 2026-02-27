@@ -1,550 +1,436 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Shubham's E-portfolio , follow me for more information." />
-    <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shubham Kumar Gupta — DevOps & Cloud Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#070b0f; --bg2:#0b1017; --border:#1b2a38;
+  --accent:#00d4ff; --accent2:#00ff9d; --accent3:#ff6b35;
+  --text:#e2eaf6; --muted:#5a6e82; --card:#0e1822;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;overflow-x:hidden}
 
-    <!-- =====BOX ICONS===== -->
-    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="shortcut icon" type="image/jpg" href="fav.png" />
-    <title>Shubham's Portfolio</title>
+/* grid bg */
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,212,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.025) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0}
+
+/* nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 3rem;background:rgba(7,11,15,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.05rem;color:var(--accent);text-decoration:none;letter-spacing:.04em}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;transition:color .3s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--accent);transition:width .3s}
+.nav-links a:hover{color:var(--accent)}
+.nav-links a:hover::after{width:100%}
+.nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:0;cursor:pointer}
+.nav-toggle span{display:block;width:22px;height:1.5px;background:var(--text)}
+
+/* hero */
+#hero{min-height:100vh;display:flex;align-items:center;padding:7rem 3rem 4rem;position:relative;overflow:hidden;z-index:1}
+.hero-blob{position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(0,212,255,.07) 0%,transparent 70%);top:-150px;right:-200px;pointer-events:none;animation:float 8s ease-in-out infinite}
+.hero-blob2{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(0,255,157,.05) 0%,transparent 70%);bottom:-100px;left:-100px;pointer-events:none;animation:float 10s ease-in-out infinite reverse}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-28px)}}
+.hero-inner{display:flex;align-items:center;justify-content:space-between;gap:4rem;width:100%}
+.hero-left{flex:1;min-width:0}
+.hero-right{flex-shrink:0;opacity:0;animation:fadeUp .7s ease forwards 1s}
+
+/* photo */
+.photo-wrap{position:relative;width:320px;height:390px}
+.photo-wrap::before{content:'';position:absolute;inset:-2px;background:linear-gradient(135deg,var(--accent),var(--accent2),transparent 60%);border-radius:4px;z-index:0}
+.photo-wrap::after{content:'';position:absolute;bottom:-14px;right:-14px;width:100%;height:100%;border:1px solid var(--border);border-radius:4px;z-index:-1}
+.photo-frame{position:relative;z-index:1;width:100%;height:100%;background:var(--card);border-radius:3px;overflow:hidden}
+.photo-frame img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;filter:grayscale(15%) contrast(1.05);transition:filter .4s}
+.photo-frame img:hover{filter:grayscale(0%) contrast(1.1)}
+.photo-frame::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.04) 2px,rgba(0,0,0,.04) 4px);pointer-events:none}
+.photo-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;color:var(--muted)}
+.photo-placeholder svg{opacity:.25}
+.photo-placeholder p{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;opacity:.4;text-align:center;padding:0 1.5rem;line-height:1.7}
+.photo-tag{position:absolute;bottom:-11px;left:1.2rem;background:var(--bg);border:1px solid var(--border);padding:.28rem .75rem;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);z-index:2}
+
+/* hero text */
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;opacity:0;animation:fadeUp .6s ease forwards .1s}
+.hero-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent2);animation:blink .9s step-end infinite}
+@keyframes blink{50%{opacity:0}}
+.hero-name{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.8rem,6vw,5.8rem);line-height:.9;letter-spacing:-.03em;opacity:0;animation:fadeUp .6s ease forwards .3s}
+.hero-name .l2{display:block;color:var(--accent)}
+.hero-role{font-family:'Syne',sans-serif;font-size:clamp(1rem,2vw,1.4rem);font-weight:600;color:var(--muted);margin-top:1.2rem;margin-bottom:1.8rem;min-height:2rem;opacity:0;animation:fadeUp .6s ease forwards .5s}
+.ct{color:var(--accent);animation:blink .8s step-end infinite}
+.hero-desc{max-width:480px;font-size:.8rem;line-height:1.9;color:var(--muted);margin-bottom:2.5rem;opacity:0;animation:fadeUp .6s ease forwards .7s}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:fadeUp .6s ease forwards .9s}
+.btn-p{background:var(--accent);color:var(--bg);padding:.72rem 2rem;border:none;font-family:'Syne',sans-serif;font-weight:700;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:all .3s;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));display:inline-block}
+.btn-p:hover{background:var(--accent2);transform:translateY(-2px);box-shadow:0 0 28px rgba(0,212,255,.3)}
+.btn-o{border:1px solid var(--border);color:var(--text);padding:.72rem 2rem;font-family:'Syne',sans-serif;font-weight:600;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:all .3s;display:inline-block}
+.btn-o:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+/* sections */
+section{position:relative;padding:5.5rem 3rem;z-index:1}
+section:nth-child(even){background:var(--bg2)}
+.sh{display:flex;align-items:center;gap:1.2rem;margin-bottom:3rem}
+.snum{font-size:.62rem;letter-spacing:.22em;color:var(--accent);opacity:.55;flex-shrink:0}
+.stitle{font-family:'Syne',sans-serif;font-size:clamp(1.6rem,4vw,2.6rem);font-weight:800;letter-spacing:-.02em}
+.sline{flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
+
+/* experience */
+.exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.exp-card{background:var(--card);border:1px solid var(--border);padding:2rem;position:relative;overflow:hidden;transition:all .4s}
+.exp-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.exp-card:hover{border-color:rgba(0,212,255,.2);transform:translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,.45)}
+.exp-card:hover::before{transform:scaleX(1)}
+.eco{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:var(--accent);margin-bottom:.3rem}
+.ero{font-size:.82rem;color:var(--text);margin-bottom:.3rem}
+.em{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:1.2rem}
+.ebl{list-style:none}
+.ebl li{font-size:.77rem;line-height:1.75;color:var(--muted);padding-left:1.2rem;position:relative;margin-bottom:.45rem}
+.ebl li::before{content:'▸';position:absolute;left:0;color:var(--accent2);font-size:.68rem;top:.15em}
+.badge{display:inline-block;padding:.2rem .6rem;background:rgba(0,212,255,.07);border:1px solid rgba(0,212,255,.18);color:var(--accent);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;margin-top:1rem}
+
+/* skills */
+.skills-container{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.2rem}
+.sg{background:var(--card);border:1px solid var(--border);padding:1.7rem;transition:all .4s;position:relative;overflow:hidden}
+.sg::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(0,212,255,.05),transparent 70%);opacity:0;transition:opacity .4s}
+.sg:hover{border-color:rgba(0,212,255,.2);transform:translateY(-3px)}
+.sg:hover::after{opacity:1}
+.sgt{font-family:'Syne',sans-serif;font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:1.1rem;display:flex;align-items:center;gap:.5rem}
+.sgt::before{content:'//';color:var(--border)}
+.stags{display:flex;flex-wrap:wrap;gap:.45rem}
+.stag{padding:.3rem .7rem;border:1px solid var(--border);font-size:.68rem;color:var(--text);letter-spacing:.04em;transition:all .3s;cursor:default}
+.stag:hover{border-color:var(--accent2);color:var(--accent2);background:rgba(0,255,157,.05);transform:translateY(-2px)}
+
+/* projects */
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.4rem}
+.pc{background:var(--card);border:1px solid var(--border);padding:2rem;position:relative;overflow:hidden;transition:all .4s;display:flex;flex-direction:column}
+.pc::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,212,255,.04),transparent 60%);opacity:0;transition:opacity .4s;pointer-events:none}
+.pc:hover{border-color:rgba(0,212,255,.25);transform:translateY(-5px);box-shadow:0 25px 55px rgba(0,0,0,.5)}
+.pc:hover::before{opacity:1}
+.pnum{font-family:'Syne',sans-serif;font-size:2.6rem;font-weight:800;color:rgba(0,212,255,.06);line-height:1;margin-bottom:.4rem;letter-spacing:-.05em}
+.ptitle{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;margin-bottom:.7rem;color:var(--text)}
+.pdesc{font-size:.77rem;line-height:1.75;color:var(--muted);flex:1;margin-bottom:1.4rem}
+.pfooter{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;position:relative;z-index:2}
+.techs{display:flex;flex-wrap:wrap;gap:.35rem}
+.tp{padding:.22rem .55rem;background:rgba(255,107,53,.09);border:1px solid rgba(255,107,53,.2);color:var(--accent3);font-size:.6rem;letter-spacing:.07em;text-transform:uppercase}
+.plink{display:inline-flex;align-items:center;gap:.4rem;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(0,212,255,.2);padding-bottom:1px;transition:all .3s;white-space:nowrap;flex-shrink:0;position:relative;z-index:2}
+.plink:hover{color:var(--accent2);border-color:var(--accent2)}
+
+/* education */
+.edu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.4rem}
+.ec{background:var(--card);border:1px solid var(--border);padding:2rem;transition:all .4s}
+.ec:hover{border-color:rgba(0,255,157,.2);transform:translateY(-3px)}
+.eyear{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem}
+.edeg{font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem;color:var(--accent2);margin-bottom:.35rem}
+.eschool{font-size:.78rem;color:var(--text);margin-bottom:.25rem}
+.eloc{font-size:.65rem;color:var(--muted)}
+.escore{margin-top:1.2rem;font-family:'Syne',sans-serif;font-size:2.2rem;font-weight:800;color:rgba(0,255,157,.38);line-height:1}
+
+/* achievements */
+.ach-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}
+.ac{background:var(--card);border:1px solid var(--border);padding:1.5rem 1.8rem;display:flex;align-items:flex-start;gap:1rem;transition:all .4s}
+.ac:hover{border-color:rgba(0,212,255,.2);transform:translateX(4px)}
+.ai{font-size:1.4rem;flex-shrink:0}
+.at{font-size:.77rem;line-height:1.7;color:var(--muted)}
+.at strong{color:var(--text);font-family:'Syne',sans-serif;display:block;margin-bottom:.2rem;font-size:.82rem}
+
+/* contact */
+#contact{text-align:center}
+.cbig{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2rem,5vw,4rem);letter-spacing:-.03em;line-height:1;margin-bottom:1.5rem;background:linear-gradient(135deg,var(--text) 30%,var(--accent) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.csub{color:var(--muted);font-size:.8rem;max-width:420px;margin:0 auto 2.5rem;line-height:1.8}
+.clinks{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.clink{display:flex;align-items:center;gap:.5rem;padding:.65rem 1.4rem;border:1px solid var(--border);color:var(--muted);text-decoration:none;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;transition:all .3s}
+.clink:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-3px)}
+
+footer{padding:1.8rem 3rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:.62rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;z-index:1;position:relative}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+/* responsive */
+@media(max-width:960px){
+  .hero-inner{flex-direction:column;gap:2.5rem}
+  .hero-right{width:100%;display:flex;justify-content:center;order:-1}
+  .photo-wrap{width:240px;height:290px}
+  .exp-grid{grid-template-columns:1fr}
+  section{padding:4rem 1.5rem}
+  #hero{padding:5.5rem 1.5rem 3rem}
+  nav{padding:1rem 1.5rem}
+  footer{flex-direction:column;gap:.5rem;text-align:center}
+}
+@media(max-width:600px){
+  .nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:var(--bg2);padding:1.5rem;border-bottom:1px solid var(--border);gap:1.5rem}
+  .nav-links.open{display:flex}
+  .nav-toggle{display:flex}
+}
+</style>
 </head>
-
 <body>
-    <header class="l-header">
-        <nav class="nav bd-grid">
-            <div>
-                <a href="#" class="nav__logo">SHUBHAM</a>
-            </div>
 
-            <div class="nav__menu" id="nav-menu">
-                <ul class="nav__list">
-                    <li class="nav__item">
-                        <a href="#home" class="nav__link active">Home</a>
-                    </li>
-                    <li class="nav__item">
-                        <a href="#about" class="nav__link">About</a>
-                    </li>
-                    <li class="nav__item">
-                        <a href="#skills" class="nav__link">Skills</a>
-                    </li>
+<nav>
+  <a href="#hero" class="nav-logo">Shubham</a>
+  <button class="nav-toggle" id="toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
 
-                    <li class="nav__item">
-                        <a href="#contact" class="nav__link">Contact</a>
-                    </li>
-                    <li class="nav__item">
-                        <a href="assets/resume.pdf" target="_blank" class="nav__link">Resume</a>
-                    </li>
-                    <li class="nav__item">
-                        <a href="#home" class="nav__link">
-                            <div class="theme-toggle">
-                                <i class="bx bx-sun" id="theme-icon"></i>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-blob"></div>
+  <div class="hero-blob2"></div>
+  <div class="hero-inner">
 
-            <div class="nav__toggle" id="nav-toggle">
-                <i class="bx bx-menu"></i>
-            </div>
-        </nav>
-    </header>
+    <!-- LEFT: Text -->
+    <div class="hero-left">
+      <p class="hero-badge">Available for opportunities</p>
+      <h1 class="hero-name">Shubham<span class="l2">Gupta</span></h1>
+      <p class="hero-role"><span id="rt">DevOps &amp; Cloud Engineer</span><span class="ct">|</span></p>
+      <p class="hero-desc">Full-Stack Developer with DevOps expertise. Experienced in scalable web apps and automating deployments using AWS, Docker, CI/CD, and Git. Skilled in React, PHP, and backend API development with strong cloud infrastructure knowledge.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-p">Let's Connect</a>
+        <a href="#projects" class="btn-o">View Projects</a>
+        <a href="resume.pdf" target="_blank" class="btn-o">Resume ↗</a>
+      </div>
+    </div>
 
-    <main class="l-main">
-        <!--===== HOME =====-->
-        <section class="home section" id="home">
-            <div class="skills__container bd-grid">
-                <div>
-                    <div class="home__data">
-                        <h2 class="home__title">
-                            Hi,<br />I'am <span class="home__title-color">Shubham </span><br />
-                            <span id="element"></span>
-                        </h2>
-
-                        <a href="assets/resume.pdf" target="_blank" class="button">Resume</a>
-                    </div>
-                </div>
-                <div class="img_card">
-                    <!-- <div class="home__img"> -->
-                    <article class="card">
-                        <img class="card__background" src="assets/aa.jpg"
-                            alt="Photo of Cartagena's cathedral at the background and some colonial style houses"
-                            width="1920" height="2193" loading="lazy" />
-                        <div class="card__content | flow"></div>
-                    </article>
-                    <!-- </div> -->
-                </div>
-            </div>
-        </section>
-
-        <!--===== ABOUT =====-->
-        <section class="about section" id="about">
-            <h2 class="section-title">About</h2>
-
-            <div class="about__container bd-grida">
-                <p class="about__text">
-                    Hey, I am Shubham Kumar Gupta. I am from Ballia,I have completed my
-                    intermediate education from Jawahar Navodaya Vidyalya . Currently, I
-                    am persuing B.Tech from KIET Group of Institutions in Computer
-                    Science & Engineering branch.
-                </p>
-                <p class="about__text">
-                    My journey as a web developer began with a curiosity for coding and
-                    an eye for design. Over the years, I've honed my skills in front-end
-                    and back-end development, creating responsive and visually appealing
-                    websites that seamlessly blend form and function. I'm proficient in
-                    languages such as HTML, CSS, JavaScript, and have experience working
-                    with popular frameworks like Angular.
-                </p>
-                <p class="about__text">
-                    I'm excited about the opportunities that lie ahead in both my
-                    academic journey and my web development career. I look forward to
-                    contributing my skills, creativity, and strong work ethic to
-                    projects that push boundaries and deliver exceptional results.
-                </p>
-            </div>
-        </section>
-
-        <!--===== SKILLS =====-->
-        <section class="skills section" id="skills">
-            <h2 class="section-title">Skills</h2>
-
-            <div class="skills__container bd-grid">
-                <div>
-                    <div class="skills__data">
-                        <div class="skills__names">
-                            <i class="bx bxl-html5 skills__icon"></i>
-                            <span class="skills__name">HTML</span>
-                        </div>
-                        <div class="skills__bar skills__html"></div>
-                        <div>
-                            <span class="skills__percentage">Intermediate</span>
-                        </div>
-                    </div>
-                    <div class="skills__data">
-                        <div class="skills__names">
-                            <i class="bx bxl-css3 skills__icon"></i>
-                            <span class="skills__name">CSS</span>
-                        </div>
-                        <div class="skills__bar skills__html"></div>
-                        <div>
-                            <span class="skills__percentage">Intermediate</span>
-                        </div>
-                    </div>
-                    <div class="skills__data">
-                        <div class="skills__names">
-                            <i class="bx bxl-javascript skills__icon"></i>
-                            <span class="skills__name">Javascript</span>
-                        </div>
-                        <div class="skills__bar skills__html"></div>
-                        <div>
-                            <span class="skills__percentage">Beginner</span>
-                        </div>
-                    </div>
-                    <div class="skills__data">
-                        <div class="skills__names">
-                            <i class="bx bxl-php skills__icon"><svg xmlns="http://www.w3.org/2000/svg" width="30"
-                                    height="30" viewBox="0 0 256 135">
-                                    <defs>
-                                        <radialGradient id="logosPhp0" cx=".837" cy="-125.811" r="363.057"
-                                            gradientTransform="matrix(.463 0 0 .463 76.464 81.918)"
-                                            gradientUnits="userSpaceOnUse">
-                                            <stop offset="0" stop-color="#FFF" />
-                                            <stop offset=".5" stop-color="#4C6B97" />
-                                            <stop offset="1" stop-color="#231F20" />
-                                        </radialGradient>
-                                    </defs>
-                                    <ellipse cx="128" cy="67.3" fill="url(#logosPhp0)" rx="128" ry="67.3" />
-                                    <ellipse cx="128" cy="67.3" fill="#6181B6" rx="123" ry="62.3" />
-                                    <path fill="#FFF"
-                                        d="m152.9 87.5l6.1-31.4c1.4-7.1.2-12.4-3.4-15.7c-3.5-3.2-9.5-4.8-18.3-4.8h-10.6l3-15.6c.1-.6 0-1.2-.4-1.7s-.9-.7-1.5-.7h-14.6c-1 0-1.8.7-2 1.6l-6.5 33.3c-.6-3.8-2-7-4.4-9.6c-4.3-4.9-11-7.4-20.1-7.4H52.1c-1 0-1.8.7-2 1.6L37 104.7c-.1.6 0 1.2.4 1.7s.9.7 1.5.7h14.7c1 0 1.8-.7 2-1.6l3.2-16.3h10.9c5.7 0 10.6-.6 14.3-1.8c3.9-1.3 7.4-3.4 10.5-6.3c2.5-2.3 4.6-4.9 6.2-7.7l-2.6 13.5c-.1.6 0 1.2.4 1.7s.9.7 1.5.7h14.6c1 0 1.8-.7 2-1.6l7.2-37h10c4.3 0 5.5.8 5.9 1.2c.3.3.9 1.5.2 5.2L134.1 87c-.1.6 0 1.2.4 1.7s.9.7 1.5.7h15c.9-.3 1.7-1 1.9-1.9zm-67.6-26c-.9 4.7-2.6 8.1-5.1 10c-2.5 1.9-6.6 2.9-12 2.9h-6.5l4.7-24.2h8.4c6.2 0 8.7 1.3 9.7 2.4c1.3 1.6 1.6 4.7.8 8.9zm130-18.6c-4.3-4.9-11-7.4-20.1-7.4h-28.3c-1 0-1.8.7-2 1.6l-13.1 67.5c-.1.6 0 1.2.4 1.7s.9.7 1.5.7h14.7c1 0 1.8-.7 2-1.6l3.2-16.3h10.9c5.7 0 10.6-.6 14.3-1.8c3.9-1.3 7.4-3.4 10.5-6.3c2.6-2.4 4.8-5.1 6.4-8c1.6-2.9 2.8-6.1 3.5-9.6c1.7-8.7.4-15.5-3.9-20.5zM200 61.5c-.9 4.7-2.6 8.1-5.1 10c-2.5 1.9-6.6 2.9-12 2.9h-6.5l4.7-24.2h8.4c6.2 0 8.7 1.3 9.7 2.4c1.4 1.6 1.7 4.7.8 8.9z" />
-                                    <path fill="#000004"
-                                        d="M74.8 48.2c5.6 0 9.3 1 11.2 3.1c1.9 2.1 2.3 5.6 1.3 10.6c-1 5.2-3 9-5.9 11.2c-2.9 2.2-7.3 3.3-13.2 3.3h-8.9l5.5-28.2h10zM39 105h14.7l3.5-17.9h12.6c5.6 0 10.1-.6 13.7-1.8c3.6-1.2 6.8-3.1 9.8-5.9c2.5-2.3 4.5-4.8 6-7.5s2.6-5.7 3.2-9c1.6-8 .4-14.2-3.5-18.7s-10.1-6.7-18.6-6.7H52.1L39 105zm74.3-85.4h14.6l-3.5 17.9h13c8.2 0 13.8 1.4 16.9 4.3c3.1 2.9 4 7.5 2.8 13.9L151 87.1h-14.8l5.8-29.9c.7-3.4.4-5.7-.7-6.9c-1.1-1.2-3.6-1.9-7.3-1.9h-11.7l-7.5 38.7h-14.6l13.1-67.5zm76.2 28.6c5.6 0 9.3 1 11.2 3.1c1.9 2.1 2.3 5.6 1.3 10.6c-1 5.2-3 9-5.9 11.2c-2.9 2.2-7.3 3.3-13.2 3.3H174l5.5-28.2h10zM153.7 105h14.7l3.5-17.9h12.6c5.6 0 10.1-.6 13.7-1.8c3.6-1.2 6.8-3.1 9.8-5.9c2.5-2.3 4.5-4.8 6-7.5s2.6-5.7 3.2-9c1.6-8 .4-14.2-3.5-18.7s-10.1-6.7-18.6-6.7h-28.3L153.7 105z" />
-                                </svg></i>
-                            <span class="skills__name">PHP</span>
-                        </div>
-                        <div class="skills__bar skills__html"></div>
-                        <div>
-                            <span class="skills__percentage">Beginner</span>
-                        </div>
-                    </div>
-                    <div class="skills__data">
-                        <div class="skills__names">
-                            <i class="bx bxl-htm skills__icon"><svg xmlns="http://www.w3.org/2000/svg" width="30"
-                                    height="30" viewBox="0 0 512 349">
-                                    <path fill="#00758F"
-                                        d="m152.31 230.297l15.56 50.487c3.496 11.463 4.954 19.465 4.37 24.026c8.51-22.792 14.456-47.63 17.839-74.513h18.71c-8.045 43.766-18.656 75.57-31.827 95.41c-10.262 15.289-21.504 22.933-33.746 22.933c-3.264 0-7.288-.986-12.063-2.944v-10.55c2.333.342 5.07.525 8.218.525c5.711 0 10.314-1.583 13.816-4.742c4.193-3.849 6.292-8.175 6.292-12.97c0-3.274-1.637-9.993-4.896-20.157l-21.68-67.505h19.406ZM33.223 199.266l28.5 86.956h.176l28.675-86.956h23.428c5.13 43.124 8.16 82.581 9.09 118.346H103.34c-.695-33.433-2.62-64.871-5.768-94.32H97.4l-30.078 94.32H52.28l-29.896-94.32h-.176c-2.218 28.282-3.614 59.72-4.196 94.32H0c1.164-42.08 4.077-81.525 8.739-118.346h24.485Z" />
-                                    <path fill="#F29111"
-                                        d="M352.498 197.51c30.657 0 45.986 19.586 45.986 58.739c0 21.276-4.61 37.347-13.821 48.204c-1.66 1.984-3.495 3.698-5.427 5.286l21.695 10.727l-.021-.001l-7.703 13.302l-28.253-16.485c-4.683 1.387-9.836 2.08-15.451 2.08c-15.053 0-26.297-4.387-33.731-13.15c-8.16-9.694-12.238-24.955-12.238-45.757c0-21.156 4.602-37.166 13.816-48.037c8.392-9.944 20.11-14.909 35.148-14.909Zm-93.88.172c10.957 0 20.92 2.932 29.894 8.775l-4.558 10.157c-7.679-3.264-15.25-4.903-22.716-4.903c-6.058 0-10.726 1.458-13.98 4.392c-3.272 2.908-5.296 6.65-5.296 11.212c0 7.01 4.994 13.089 14.215 18.225a816.32 816.32 0 0 1 9.031 5.011l.688.387l.345.194l.689.387l.344.194l.688.388c6.98 3.935 13.548 7.691 13.548 7.691c9.22 6.545 13.816 13.523 13.816 25.016c0 10.037-3.678 18.276-11.01 24.723c-7.337 6.418-17.194 9.636-29.538 9.636c-11.545 0-22.734-3.704-33.572-11.05l5.07-10.166c9.327 4.675 17.767 7.01 25.346 7.01c7.108 0 12.672-1.587 16.697-4.721c4.017-3.157 6.424-7.56 6.424-13.143c0-7.027-4.888-13.034-13.855-18.073a897.982 897.982 0 0 1-8.395-4.697l-.687-.389c-1.262-.713-2.533-1.435-3.778-2.142l-.675-.384c-6.055-3.444-11.29-6.453-11.29-6.453c-8.964-6.557-13.459-13.592-13.459-25.184c0-9.587 3.352-17.336 10.046-23.231c6.71-5.908 15.367-8.862 25.968-8.862Zm175.895 1.584v103.788h37.238v14.558h-56.124V199.266h18.886Zm57.93 103.833v2.46h-4.094v12.04h-3.13v-12.04h-4.253v-2.46h11.478Zm7.56 0l3.931 9.884l3.611-9.884h4.437v14.5h-2.95v-11.035l-4.11 11.035h-2.127l-4.117-11.035h-.158v11.035h-2.791v-14.5h4.275ZM350.57 212.064c-18.066 0-27.104 14.91-27.104 44.71c0 17.07 2.395 29.448 7.176 37.163c4.428 7.14 11.363 10.703 20.806 10.703c18.066 0 27.103-15.026 27.103-45.064c0-16.831-2.395-29.103-7.17-36.822c-4.433-7.124-11.365-10.69-20.81-10.69Z" />
-                                    <path fill="#00758F"
-                                        d="M303.218 7.333c5.993-14.726 26.948-3.574 35.08 1.57c1.993 1.287 4.279 4.006 6.564 5.011c3.565.14 7.127.419 10.698.568c6.698 1.574 12.972 2.86 18.25 5.866c24.528 14.445 40.495 29.165 55.19 53.479c3.14 5.15 4.709 10.723 7.274 16.296c3.56 8.307 7.56 17.027 11.692 24.882c1.85 3.724 3.281 7.865 5.85 11.01c1.003 1.438 3.852 1.862 5.555 2.721c4.708 2.437 10.412 4.287 14.84 7.147c8.269 5.156 16.264 11.3 23.532 17.59c2.709 2.428 4.555 5.865 7.136 8.433v1.296c-2.291.703-4.574 1.423-6.859 2c-4.991 1.282-9.412.992-14.254 2.275c-2.992.868-6.707 2.013-9.845 2.304l.29.292c1.846 5.275 11.834 9.565 16.402 12.72c5.548 4.004 10.689 8.86 14.827 14.437c1.429 1.423 2.858 2.718 4.28 4.137c.994 1.438 1.274 3.298 2.28 4.58v.434c-1.114-.393-1.915-1.143-2.674-1.927l-.453-.473c-.453-.47-.91-.932-1.431-1.313c-3.148-2.15-6.274-4.722-9.422-6.721c-5.412-3.434-11.689-5.427-17.246-8.874c-3.142-2.001-6.137-4.28-9.132-6.57c-2.715-2.007-5.705-5.861-7.411-8.721c-1.005-1.58-1.143-3.437-2.291-4.58c.205-1.909 1.954-2.476 3.719-2.942l.406-.107c.609-.158 1.205-.316 1.725-.525c7.414-3.148 16.253-4.29 27.667-4.004c-.43-2.866-7.562-6.437-9.839-8.153c-4.57-3.294-9.409-6.731-14.257-9.729c-2.569-1.57-6.996-2.716-9.842-3.999c-3.851-1.574-12.41-3.147-14.544-6.145c-3.625-4.726-6.229-10.363-8.757-16.057l-.688-1.554a803.85 803.85 0 0 0-.69-1.553c-2.988-6.857-6.7-14.006-9.695-21.027c-1.566-3.425-2.285-6.431-4-9.716c-10.407-20.158-25.81-37.035-44.485-48.904c-6.137-3.862-12.98-7.436-20.534-9.865c-4.281-1.293-9.419-.578-13.98-1.57h-3.002c-2.562-.722-4.701-3.438-6.7-4.87c-4.415-2.998-8.837-5.011-14.117-7.15c-1.85-.858-7.133-2.856-8.977-1.283c-1.142.287-1.721.718-2.002 1.864c-1.136 1.71-.137 4.286.57 5.863c2.142 4.57 5.134 7.286 7.85 11.148c2.416 3.425 5.417 7.287 7.13 11.011c3.696 8.005 5.417 16.874 8.842 24.878c1.27 3.01 3.279 6.435 5.128 9.15c1.567 2.155 4.416 3.713 5.278 6.441c1.718 2.86-2.572 12.297-3.565 15.294c-3.715 11.727-2.995 28.028 1.283 38.193l.228.536l.228.543c1.562 3.723 3.234 7.732 7.387 8.773c.286-.284 0-.135.567-.284c1.005-7.868 1.288-15.445 4-21.601c1.567-3.849 4.696-6.57 6.841-9.712c1.43.856 1.43 3.437 2.282 5.145c1.856 4.43 3.849 9.287 6.137 13.73c4.696 9.15 9.98 18.021 15.967 26.025c2.005 2.859 4.85 6.006 7.416 8.581c1.143.997 2.423 1.573 3.282 2.856h.28v.432c-4.278-1.577-6.99-6.003-10.402-8.587c-6.424-4.857-14.117-12.151-18.545-19.15c-1.852-4.018-3.854-7.869-5.85-11.867v-.289c-.853 1.142-.567 2.276-.994 4.004c-1.852 7.145-.426 15.296-6.843 17.866c-7.274 3.01-12.7-4.857-14.977-8.432c-7.276-11.866-9.269-31.884-4.138-48.043c1.14-3.577 1.295-7.867 3.285-10.723c-.43-2.582-2.42-3.288-3.571-4.87c-1.996-2.704-3.705-5.854-5.268-8.857c-3.002-5.866-5.138-12.875-7.417-19.166c-1.002-2.569-1.289-5.148-2.288-7.58c-1.704-3.712-4.845-7.436-7.268-10.72c-3.281-4.72-12.837-13.868-8.985-23.168Zm46.772 28.015c.381.382.841.716 1.317 1.045l.574.394c.765.53 1.506 1.088 1.96 1.848c.72 1.006.854 1.999 1.716 3.007c0 3.437-.996 5.722-3.007 7.146c0 0-.137.15-.278.29c-1.14-2.291-2.139-4.57-3.287-6.859c-1.414-1.998-3.413-3.583-4.565-5.866h-.277v-.287c1.721-.425 3.428-.718 5.847-.718Z" />
-                                </svg></i>
-                            <span class="skills__name">SQL</span>
-                        </div>
-                        <div class="skills__bar skills__html"></div>
-                        <div>
-                            <span class="skills__percentage">Beginner</span>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="skills__data">
-                        <div class="skills__names">
-                            <i class="bx bxl-c-plus-plus skills__icon"><svg xmlns="http://www.w3.org/2000/svg"
-                                    width="25" height="24" viewBox="0 0 128 128">
-                                    <path fill="#659AD3"
-                                        d="M115.4 30.7L67.1 2.9c-.8-.5-1.9-.7-3.1-.7c-1.2 0-2.3.3-3.1.7l-48 27.9c-1.7 1-2.9 3.5-2.9 5.4v55.7c0 1.1.2 2.4 1 3.5l106.8-62c-.6-1.2-1.5-2.1-2.4-2.7z" />
-                                    <path fill="#03599C"
-                                        d="M10.7 95.3c.5.8 1.2 1.5 1.9 1.9l48.2 27.9c.8.5 1.9.7 3.1.7c1.2 0 2.3-.3 3.1-.7l48-27.9c1.7-1 2.9-3.5 2.9-5.4V36.1c0-.9-.1-1.9-.6-2.8l-106.6 62z" />
-                                    <path fill="#fff"
-                                        d="M85.3 76.1C81.1 83.5 73.1 88.5 64 88.5c-13.5 0-24.5-11-24.5-24.5s11-24.5 24.5-24.5c9.1 0 17.1 5 21.3 12.5l13-7.5c-6.8-11.9-19.6-20-34.3-20c-21.8 0-39.5 17.7-39.5 39.5s17.7 39.5 39.5 39.5c14.6 0 27.4-8 34.2-19.8l-12.9-7.6z" />
-                                </svg></i>
-                            <span class="skills__name">C Language</span>
-                        </div>
-                        <div class="skills__bar skills__html"></div>
-                        <div>
-                            <span class="skills__percentage">Intermediate</span>
-                        </div>
-                    </div>
-                    <div class="skills__data">
-                        <div class="skills__names">
-                            <i class="bx bxl-htm skills__icon"><svg xmlns="http://www.w3.org/2000/svg" width="25"
-                                    height="25" viewBox="0 0 455 512">
-                                    <path fill="currentColor"
-                                        d="M435.28 113.284L247.19 4.692c-10.835-6.256-28.567-6.256-39.402 0L19.701 113.284C8.865 119.54 0 134.896 0 147.408v217.184c.843 14.572 8.286 26.64 19.7 34.124l188.09 108.591c10.834 6.257 28.566 6.257 39.401 0L435.28 398.716c12.248-8.146 19.22-20.408 19.701-34.124V147.408c-.44-13.165-8.323-26.443-19.7-34.124zM75.83 256.001c-.891-148.09 197.46-213.48 282.996-75.878l-65.634 37.98c-39.622-65.533-138.001-42.1-141.532 37.898c1.06 73.729 97.754 107.978 141.536 37.892l65.635 37.98c-75.383 130.862-279.2 83.78-283-75.872zm303.32 8.424h-16.852v16.852H345.45v-16.852h-16.852v-16.85h16.852v-16.85h16.85v16.85h16.851v16.85zm63.192 0H425.49v16.852h-16.85v-16.852h-16.85v-16.85h16.852v-16.85h16.849v16.85h16.852v16.85z" />
-                                </svg></i>
-                            <span class="skills__name">C++</span>
-                        </div>
-                        <div class="skills__bar skills__html"></div>
-                        <div>
-                            <span class="skills__percentage">Intermediate</span>
-                        </div>
-                    </div>
-                    <div class="skills__data">
-                        <div class="skills__names">
-                            <i class="bx bxl-java skills__icon"><svg xmlns="http://www.w3.org/2000/svg" width="22"
-                                    height="22" viewBox="0 0 128 128">
-                                    <path fill="#0074BD"
-                                        d="M47.617 98.12s-4.767 2.774 3.397 3.71c9.892 1.13 14.947.968 25.845-1.092c0 0 2.871 1.795 6.873 3.351c-24.439 10.47-55.308-.607-36.115-5.969zm-2.988-13.665s-5.348 3.959 2.823 4.805c10.567 1.091 18.91 1.18 33.354-1.6c0 0 1.993 2.025 5.132 3.131c-29.542 8.64-62.446.68-41.309-6.336z" />
-                                    <path fill="#EA2D2E"
-                                        d="M69.802 61.271c6.025 6.935-1.58 13.17-1.58 13.17s15.289-7.891 8.269-17.777c-6.559-9.215-11.587-13.792 15.635-29.58c0 .001-42.731 10.67-22.324 34.187z" />
-                                    <path fill="#0074BD"
-                                        d="M102.123 108.229s3.529 2.91-3.888 5.159c-14.102 4.272-58.706 5.56-71.094.171c-4.451-1.938 3.899-4.625 6.526-5.192c2.739-.593 4.303-.485 4.303-.485c-4.953-3.487-32.013 6.85-13.743 9.815c49.821 8.076 90.817-3.637 77.896-9.468zM49.912 70.294s-22.686 5.389-8.033 7.348c6.188.828 18.518.638 30.011-.326c9.39-.789 18.813-2.474 18.813-2.474s-3.308 1.419-5.704 3.053c-23.042 6.061-67.544 3.238-54.731-2.958c10.832-5.239 19.644-4.643 19.644-4.643zm40.697 22.747c23.421-12.167 12.591-23.86 5.032-22.285c-1.848.385-2.677.72-2.677.72s.688-1.079 2-1.543c14.953-5.255 26.451 15.503-4.823 23.725c0-.002.359-.327.468-.617z" />
-                                    <path fill="#EA2D2E"
-                                        d="M76.491 1.587S89.459 14.563 64.188 34.51c-20.266 16.006-4.621 25.13-.007 35.559c-11.831-10.673-20.509-20.07-14.688-28.815C58.041 28.42 81.722 22.195 76.491 1.587z" />
-                                    <path fill="#0074BD"
-                                        d="M52.214 126.021c22.476 1.437 57-.8 57.817-11.436c0 0-1.571 4.032-18.577 7.231c-19.186 3.612-42.854 3.191-56.887.874c0 .001 2.875 2.381 17.647 3.331z" />
-                                </svg></i>
-                            <span class="skills__name">JAVA</span>
-                        </div>
-                        <div class="skills__bar skills__html"></div>
-                        <div>
-                            <span class="skills__percentage">Beginner</span>
-                        </div>
-                    </div>
-                    <div class="skills__data">
-                        <div class="skills__names">
-                            <i class="bx bxl-htm skills__icon"><svg xmlns="http://www.w3.org/2000/svg" width="25"
-                                    height="25" viewBox="0 0 256 258">
-                                    <g fill="none" fill-rule="evenodd">
-                                        <path fill="#FB7A24"
-                                            d="M127.929.002c33.227 0 66.455 0 99.682-.002c4.17 0 8.3.362 12.301 1.582c8.675 2.644 13.268 8.865 15.068 17.438c.715 3.4.918 6.865.925 10.33c.053 23.27.092 46.542.094 69.814c.002 42.384.007 84.768-.08 127.151c-.012 5.933-.328 11.931-3.257 17.336c-3.249 5.994-7.697 10.738-14.45 12.824c-1.22.377-2.494.806-3.745.806c-2.882.002-5.687.716-8.56.716c-65.067-.005-130.133.033-195.2-.07c-5.292-.01-10.67-.395-15.697-2.548c-1-.43-2.01-.79-2.89-1.46c-6.4-4.877-10.746-10.96-11.678-19.191c-.335-2.968-.442-5.92-.442-8.889c.01-65.952.016-131.904.05-197.856c.003-3.826.042-7.718 1.219-11.38C4.403 6.846 11.261 1.519 21.427.437C23.79.185 26.173.022 28.547.02C61.672-.007 94.801.002 127.928.002Z" />
-                                        <path fill="#FFF"
-                                            d="M128.775 164.113c-.727 4.454-1.238 8.48-2.838 12.19c-7.49 17.384-20.256 27.977-39.394 30.086c-22.621 2.492-43.515-11.47-49.797-33.154c-2.277-7.858-2.049-15.869-1.223-23.867c.881-8.546 3.399-16.65 7.33-24.296c.563-1.093.552-1.918-.152-2.977c-6.036-9.078-8.378-19.107-7.528-29.932c.455-5.786 1.86-11.32 4.483-16.504c7.689-15.185 24.57-28.072 47.179-25.932c19.88 1.88 38.293 19.029 41.167 38.315c.145.968.417 1.918.735 3.346c.476-2.586.82-4.72 1.265-6.834c3.703-17.521 20.854-35.855 45.164-36.082c24.64-.228 42.887 19.097 46.33 37.045c1.455 7.585 1.202 15.163.002 22.738a81.02 81.02 0 0 1-6.672 21.775c-.716 1.529-.642 2.63.275 4.05c5.307 8.224 7.649 17.252 7.349 27.056c-.628 20.457-15.097 38.802-35.002 43.6c-27.79 6.697-49.093-9.923-56.262-30.031c-1.17-3.273-1.723-6.69-2.41-10.592Zm50.489-35.94c.297-1.157 1.193-1.85 1.837-2.706c6.968-9.26 10.633-19.603 9.815-31.25c-.596-8.5-7.587-14.488-16.05-14.171c-8.469.317-14.85 6.848-14.97 15.322c-.009.694.033 1.389-.01 2.078c-.583 9.031-5.566 13.978-13.117 14.53c-1.379.101-2.762.224-4.143.228c-9.8.022-19.599.018-29.4.009c-4.28-.004-8.524.462-12.6 1.72c-19.027 5.87-30.122 18.882-33.796 38.275c-.728 3.837-1.383 7.819-.125 11.76c1.805 5.653 5.17 9.857 11.126 11.263c6.173 1.457 11.55-.155 15.822-5.004c2.761-3.135 3.632-6.86 3.838-10.948c.534-10.515 6.26-15.771 15.81-15.692c14.649.122 29.3.026 43.951.037c2.6.001 2.624.036 2.637 2.608c.025 4.75-.121 9.507.062 14.252c.298 7.747 7.114 14.186 15.016 14.413c8.148.233 15.411-5.794 15.942-13.661c.458-6.81.429-13.661-.018-20.476c-.346-5.275-3.2-9.035-8.036-11.217c-1.16-.522-2.38-.913-3.591-1.37Zm-91.832-15.984c3.151 0 5.723-.029 8.293.013c1.274.02 1.746-.528 1.736-1.777c-.042-4.943.213-9.902-.102-14.827c-.416-6.497-3.871-11.194-9.92-13.563c-6.202-2.429-11.878-1.043-16.678 3.538c-4.821 4.603-5.464 10.232-3.777 16.392c1.55 5.662 5.21 8.878 10.968 9.85c3.344.563 6.707.293 9.48.374Z" />
-                                    </g>
-                                </svg></i>
-                            <span class="skills__name">XAMMP</span>
-                        </div>
-                        <div class="skills__bar skills__html"></div>
-                        <div>
-                            <span class="skills__percentage">Beginner</span>
-                        </div>
-                    </div>
-                    <div class="skills__data">
-                        <div class="skills__names">
-                            <i class="bx bxl-html skills__icon"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                    height="24" viewBox="0 0 24 24">
-                                    <path fill="currentColor"
-                                        d="M12 2.247a10 10 0 0 0-3.162 19.487c.5.088.687-.212.687-.475c0-.237-.012-1.025-.012-1.862c-2.513.462-3.163-.613-3.363-1.175a3.636 3.636 0 0 0-1.025-1.413c-.35-.187-.85-.65-.013-.662a2.001 2.001 0 0 1 1.538 1.025a2.137 2.137 0 0 0 2.912.825a2.104 2.104 0 0 1 .638-1.338c-2.225-.25-4.55-1.112-4.55-4.937a3.892 3.892 0 0 1 1.025-2.688a3.594 3.594 0 0 1 .1-2.65s.837-.262 2.75 1.025a9.427 9.427 0 0 1 5 0c1.912-1.3 2.75-1.025 2.75-1.025a3.593 3.593 0 0 1 .1 2.65a3.869 3.869 0 0 1 1.025 2.688c0 3.837-2.338 4.687-4.563 4.937a2.368 2.368 0 0 1 .675 1.85c0 1.338-.012 2.413-.012 2.75c0 .263.187.575.687.475A10.005 10.005 0 0 0 12 2.247Z" />
-                                </svg></i>
-                            <span class="skills__name">Github</span>
-                        </div>
-                        <div class="skills__bar skills__html"></div>
-                        <div>
-                            <span class="skills__percentage">Intermediate</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!--===== Qualification =====-->
-
-        <!-- Start Timeline -->
-        <section class="section" id="timeline">
-            <h2 class="section-title">Education</h2>
-            <div class="timeline-container">
-                <ul class="timeline">
-                    <li>
-                        <div class="timeline-content">
-                            <div class="timeline-icon">
-                                <i class="fas fa-graduation-cap"></i>
-                            </div>
-                            <div class="timeline-card">
-                                <h3>High School</h3>
-                                <p>Jawahar Navodaya Vidyalya, Mau</p>
-                                <div class="timeline-date">2017</div>
-                                <div class="timeline-desc">
-                                    Completed 10th grade with 89% marks.
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="timeline-content">
-                            <div class="timeline-icon">
-                                <i class="fas fa-book-open"></i>
-                            </div>
-                            <div class="timeline-card">
-                                <h3>Senior Secondary</h3>
-                                <p>Jawahar Navodaya Vidyalya, Mau</p>
-                                <div class="timeline-date">2019</div>
-                                <div class="timeline-desc">
-                                    Completed 12th grade with 92% in Science stream.
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="timeline-content">
-                            <div class="timeline-icon">
-                                <i class="fas fa-university"></i>
-                            </div>
-                            <div class="timeline-card">
-                                <h3>B.Tech </h3>
-                                <p>KIET Group of Institutions, Ghaziabad</p>
-                                <div class="timeline-date">2020-2024</div>
-                                <div class="timeline-desc">
-                                    Specialized in Computer Science with 7.5 CGPA.
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="timeline-content">
-                            <div class="timeline-icon">
-                                <i class="fas fa-briefcase"></i>
-                            </div>
-                            <div class="timeline-card">
-                                <h3>Web Developer</h3>
-                                <p>Groveus Informetics PVT. Ltd, Siliguri</p>
-                                <div class="timeline-date">2024-Ongoing</div>
-                                <div class="timeline-desc">
-                                    Developing web applications using React and PHP.
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </section>
-
-        <!--===== PROJECTS =====-->
-        <h2 class="section-title" style="text-align: center">Projects</h2>
-        <section class="articles section">
-            <article>
-                <div class="article-wrapper">
-                    <figure>
-                        <img src="assets/weather.png" alt="weather" loading="lazy" />
-                    </figure>
-                    <div class="article-body">
-                        <h2>SkyWatch</h2>
-                        <p>
-                            Your Complete Weather Companion - Get accurate weather
-                            forecasts, air quality data, and interactive maps for any
-                            location worldwide.
-                        </p>
-                        <a href="https://skywatch45.netlify.app/" target="_blank" class="read-more">
-                            Read more <span class="sr-only">about this is some title</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </article>
-            <article>
-                <div class="article-wrapper">
-                    <figure>
-                        <img src="assets/pro1.jpg" alt="ecommerce " loading="lazy" />
-                    </figure>
-                    <div class="article-body">
-                        <h2>WebXr</h2>
-                        <p>
-                            Welcome to our captivating e-commerce platform, where you'll
-                            discover a stunning array of furniture pieces designed to
-                            elevate your living spaces.
-                        </p>
-                        <a href="https://furniture-dekho.netlify.app/" target="_blank" class="read-more">
-                            Read more <span class="sr-only">about this is some title</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </article>
-            <article>
-                <div class="article-wrapper">
-                    <figure>
-                        <img src="assets/pro2.jpg" alt="" loading="lazy" />
-                    </figure>
-                    <div class="article-body">
-                        <h2>Weed Detector</h2>
-                        <p>
-                            Automatic weed detection is a cutting-edge technological
-                            solution aimed at revolutionizing the agriculture and
-                            landscaping industries.
-                        </p>
-                        <a href="pro2.html" target="_blank" class="read-more">
-                            Read more <span class="sr-only">about this is some title</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </article>
-            <article>
-                <div class="article-wrapper">
-                    <figure>
-                        <img src="assets/pro3.jpeg" alt="food " loading="lazy" />
-                    </figure>
-                    <div class="article-body">
-                        <h2>Crisp Corner</h2>
-                        <p>
-                            This Angular-powered food order website offers a seamless user
-                            experience for ordering delicious meals online.
-                        </p>
-                        <a href="https://crispcorner.netlify.app/" target="_blank" class="read-more">
-                            Read more <span class="sr-only">about this is some title</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </article>
-
-            <article>
-                <div class="article-wrapper">
-                    <figure>
-                        <img src="assets/pro4.jpg" alt="clothcove" />
-                    </figure>
-                    <div class="article-body">
-                        <h2>Cloth Cove</h2>
-                        <p>
-                            Here you can explore our curated collection of trendy and
-                            timeless clothing on our website.
-                        </p>
-                        <a href="https://clothcove.netlify.app/" target="_blank" class="read-more">
-                            Read more <span class="sr-only">about this is some title</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </article>
-        </section>
-
-        <!--===== CONTACT =====-->
-        <section class="contact section" id="contact">
-            <h2 class="section-title">Get in touch</h2>
-
-            <div class="contact__container bd-grid">
-                <form name="contact" method="POST" netlify>
-                    <input type="text" placeholder="Your Name..." class="contact__input" name="name" />
-                    <input type="mail" placeholder="Your Email..." class="contact__input" name="email" />
-                    <textarea id="" cols="0" placeholder="Write your Query..." name="message" rows="10"
-                        class="contact__input"></textarea>
-                    <button type="submit" class="contact__button button">Submit</button>
-                </form>
-
-                <!-- <form action="" onsubmit="sendEmail();reset();return false;" class="contact__form">
-                   -->
-                <!-- <input type="button" value="Submit" class="contact__button button"> -->
-                <!-- <button type="submit" class="contact__button button">Submit </button>
-                </form> -->
-            </div>
-        </section>
-    </main>
-
-    <!--===== FOOTER =====-->
-    <footer class="footer">
-        <p class="footer__title"></p>
-        <div class="footer__social">
-            <a href="https://www.linkedin.com/in/shubham-kumar-gupta-5729a1203/" target="_blank" class="footer__icon"><i
-                    class="bx bxl-linkedin"></i></a>
-            <a href="https://github.com/shubham221716" target="_blank" class="footer__icon"><i
-                    class="bx bxl-github"></i></a>
-            <a href="https://wa.me/6394585477" class="footer__icon" target="_blank"><i class="bx bxl-whatsapp"></i></a>
-            <a href="https://www.instagram.com/_shubh_45_/" target="_blank" class="footer__icon"><i
-                    class="bx bxl-instagram"></i></a>
-            <a href="https://twitter.com/_shubh_45_" target="_blank" class="footer__icon"><i
-                    class="bx bxl-twitter"></i></a>
+    <!-- RIGHT: Photo -->
+    <div class="hero-right">
+      <div class="photo-wrap">
+        <div class="photo-frame">
+          <!-- Replace with your photo:  -->
+          <div class="photo-placeholder">
+           
+            <img src="shubham.jpg" alt="Shubham Kumar Gupta" />
+          </div>
         </div>
-        <a href="https://shubham-encryption.netlify.app/" target="_blank" class="read-more">
-        <p class="footer__copy">Shubham | All Rights Reserved</p> </a>
-    </footer>
-    <button onclick="topFunction()" id="myBtn" title="Go to top">
-        <i class="ui"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512">
-                <!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-                <style>
-                    svg {
-                        fill: #4b57f5;
-                    }
-                </style>
-                <path
-                    d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z" />
-            </svg></i>
-    </button>
-    <script></script>
-    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
-    <script>
-        var typed = new Typed("#element", {
-            strings: ["<i>Student</i> ", "Web Developer"],
-            typeSpeed: 50,
-        });
-    </script>
+        <div class="photo-tag">Shubham Kumar Gupta</div>
+      </div>
+    </div>
 
-    <!--===== SCROLL REVEAL =====-->
-    <script src="https://unpkg.com/scrollreveal"></script>
+  </div>
+</section>
 
-    <!--===== MAIN JS =====-->
-    <script src="main.js"></script>
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="sh reveal"><span class="snum">01</span><h2 class="stitle">Experience</h2><div class="sline"></div></div>
+  <div class="exp-grid">
+    <div class="exp-card reveal d1">
+      <div class="eco">Tata Consultancy Services</div>
+      <div class="ero">Assistant System Engineer</div>
+      <div class="em">June 2025 – Present · Varanasi, UP</div>
+      <ul class="ebl">
+        <li>Built & optimized CI/CD pipelines using Jenkins & GitHub — enabled daily automated releases, cut deployment time by 40%.</li>
+        <li>Eliminated 60% of manual Docker-to-EC2 deployment effort through full pipeline automation.</li>
+        <li>Provisioned AWS infrastructure (EC2, S3, IAM, VPC) with Terraform & remote state — reduced provisioning from 2 hrs to 15 mins.</li>
+        <li>Maintained environment consistency across dev, staging, and production.</li>
+      </ul>
+      <span class="badge">Current Role</span>
+    </div>
+    <div class="exp-card reveal d2">
+      <div class="eco">Groveus Informatics</div>
+      <div class="ero">Web Developer</div>
+      <div class="em">July 2024 – June 2025 · Siliguri, WB</div>
+      <ul class="ebl">
+        <li>Designed responsive websites using PHP, JavaScript, and HTML/CSS with full cross-device compatibility.</li>
+        <li>Applied SEO best practices and performance optimizations to boost search visibility and rankings.</li>
+        <li>Built and maintained client-facing web applications for real business use cases.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="sh reveal"><span class="snum">02</span><h2 class="stitle">Tech Stack</h2><div class="sline"></div></div>
+  <div class="skills-container">
+    <div class="sg reveal d1">
+      <div class="sgt">DevOps & Cloud</div>
+      <div class="stags">
+        <span class="stag">AWS EC2</span><span class="stag">AWS S3</span><span class="stag">AWS IAM</span><span class="stag">AWS VPC</span><span class="stag">Jenkins</span><span class="stag">Docker</span><span class="stag">Terraform</span><span class="stag">Nginx</span>
+      </div>
+    </div>
+    <div class="sg reveal d2">
+      <div class="sgt">Languages</div>
+      <div class="stags">
+        <span class="stag">JavaScript</span><span class="stag">C / C++</span><span class="stag">Java</span><span class="stag">PHP</span><span class="stag">SQL</span><span class="stag">HTML5</span><span class="stag">CSS3</span>
+      </div>
+    </div>
+    <div class="sg reveal d3">
+      <div class="sgt">Frameworks & Tools</div>
+      <div class="stags">
+        <span class="stag">React</span><span class="stag">Node.js</span><span class="stag">MongoDB</span><span class="stag">Bootstrap 5</span><span class="stag">CodeIgniter</span><span class="stag">Git</span><span class="stag">GitHub</span><span class="stag">Linux</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="sh reveal"><span class="snum">03</span><h2 class="stitle">Projects</h2><div class="sline"></div></div>
+  <div class="projects-grid">
+
+    <div class="pc reveal d1">
+      <div class="pnum">01</div>
+      <div class="ptitle">SkyWatch — Weather Dashboard</div>
+      <div class="pdesc">A complete weather companion with real-time forecasts, 5-day outlook, air quality data (PM2.5, PM10, O3, NO2), and interactive maps. Powered by OpenWeatherMap API with dark mode support.</div>
+      <div class="pfooter">
+        <div class="techs"><span class="tp">JavaScript</span><span class="tp">OpenWeather API</span><span class="tp">HTML/CSS</span></div>
+        <a href="https://skywatch45.netlify.app/" target="_blank" rel="noopener" class="plink">Live ↗</a>
+      </div>
+    </div>
+
+    <div class="pc reveal d2">
+      <div class="pnum">02</div>
+      <div class="ptitle">Crisp Corner — Food Ordering</div>
+      <div class="pdesc">Full-stack food ordering platform with real-time order processing. REST APIs handling 100+ daily requests. Optimized MongoDB queries reducing response time by 30%.</div>
+      <div class="pfooter">
+        <div class="techs"><span class="tp">React</span><span class="tp">Node.js</span><span class="tp">MongoDB</span><span class="tp">REST API</span></div>
+        <a href="https://crispcorner.netlify.app/" target="_blank" rel="noopener" class="plink">Live ↗</a>
+      </div>
+    </div>
+
+    <div class="pc reveal d3">
+      <div class="pnum">03</div>
+      <div class="ptitle">Weed Detector</div>
+      <div class="pdesc">Automatic weed detection system aimed at revolutionizing agriculture and landscaping using computer vision and machine learning techniques.</div>
+      <div class="pfooter">
+        <div class="techs"><span class="tp">Python</span><span class="tp">ML</span><span class="tp">Computer Vision</span></div>
+        <a href="https://github.com/shubham221716/Weed-Detection" target="_blank" rel="noopener" class="plink">GitHub ↗</a>
+      </div>
+    </div>
+
+    <div class="pc reveal d1">
+      <div class="pnum">04</div>
+      <div class="ptitle">DevOps CI/CD Pipeline</div>
+      <div class="pdesc">End-to-end automated pipeline using Jenkins & GitHub for build, test, and deploy. Containerized with Docker, deployed on AWS EC2 via Nginx reverse proxy.</div>
+      <div class="pfooter">
+        <div class="techs"><span class="tp">Jenkins</span><span class="tp">Docker</span><span class="tp">AWS EC2</span><span class="tp">Nginx</span></div>
+        <a href="https://github.com/shubham221716/devops" target="_blank" rel="noopener" class="plink">GitHub ↗</a>
+      </div>
+    </div>
+
+    <div class="pc reveal d2">
+      <div class="pnum">05</div>
+      <div class="ptitle">Packers & Movers Website</div>
+      <div class="pdesc">Publicly hosted business website for a moving services company with service listings, contact forms, and fully responsive design on a PHP + CodeIgniter backend.</div>
+      <div class="pfooter">
+        <div class="techs"><span class="tp">PHP</span><span class="tp">CodeIgniter</span><span class="tp">HTML/CSS</span><span class="tp">JS</span></div>
+        <a href="https://rupamcargopackers.com/" target="_blank" rel="noopener" class="plink">Live ↗</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="sh reveal"><span class="snum">04</span><h2 class="stitle">Education</h2><div class="sline"></div></div>
+  <div class="edu-grid">
+    <div class="ec reveal d1">
+      <div class="eyear">2020 – 2024</div>
+      <div class="edeg">B.Tech — Computer Science & Engineering</div>
+      <div class="eschool">KIET Group of Institutions (AKTU)</div>
+      <div class="eloc">Ghaziabad, Uttar Pradesh</div>
+      <div class="escore">74.8%</div>
+    </div>
+    <div class="ec reveal d2">
+      <div class="eyear">2017 – 2019</div>
+      <div class="edeg">Senior Secondary (CBSE) — Science</div>
+      <div class="eschool">Jawahar Navodaya Vidyalaya</div>
+      <div class="eloc">Mau, Uttar Pradesh</div>
+      <div class="escore">91.8%</div>
+    </div>
+    <div class="ec reveal d3">
+      <div class="eyear">2017</div>
+      <div class="edeg">High School (CBSE)</div>
+      <div class="eschool">Jawahar Navodaya Vidyalaya</div>
+      <div class="eloc">Mau, Uttar Pradesh</div>
+      <div class="escore">89%</div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="sh reveal"><span class="snum">05</span><h2 class="stitle">Achievements</h2><div class="sline"></div></div>
+  <div class="ach-grid">
+    <div class="ac reveal d1"><div class="ai">⭐</div><div class="at"><strong>CodeChef 2-Star</strong>Max rating 1443 with silver badge. Competed in 30+ programming contests.</div></div>
+    <div class="ac reveal d2"><div class="ai">💡</div><div class="at"><strong>LeetCode 300+</strong>Solved across Arrays, Strings, Stacks, Queues, Linked Lists, and Hashing.</div></div>
+    <div class="ac reveal d3"><div class="ai">☁️</div><div class="at"><strong>AWS Cloud Foundations</strong>Certified by AWS Academy in Cloud Foundations.</div></div>
+    <div class="ac reveal d4"><div class="ai">🐳</div><div class="at"><strong>Docker Certified — Udemy</strong>Containerization, image builds, Docker Compose, and deployment.</div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="snum reveal" style="text-align:center;margin-bottom:.8rem;letter-spacing:.2em;">06 / GET IN TOUCH</p>
+  <h2 class="cbig reveal">Let's Build<br>Something.</h2>
+  <p class="csub reveal">Open to DevOps, Cloud Engineering, and full-stack roles. Based in Ballia, UP — available remotely or on-site.</p>
+  <div class="clinks reveal">
+    <a href="mailto:skg2002007@gmail.com" class="clink">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Email
+    </a>
+    <a href="https://github.com/shubham221716" target="_blank" rel="noopener" class="clink">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/shubh45/" target="_blank" rel="noopener" class="clink">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      LinkedIn
+    </a>
+    <a href="tel:+916394585477" class="clink">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.9A16 16 0 0 0 16 17l.94-.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      +91 63945 85477
+    </a>
+  </div>
+</section>
+
+<footer>
+  <span>© 2025 Shubham Kumar Gupta</span>
+  <span>Ballia, Uttar Pradesh · India</span>
+</footer>
+
+<script>
+// Nav toggle
+document.getElementById('toggle').addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('open');
+});
+document.querySelectorAll('#navLinks a').forEach(a => {
+  a.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.remove('open');
+  });
+});
+
+// Scroll reveal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// Typewriter
+const roles = ['DevOps & Cloud Engineer','CI/CD Automation Expert','AWS Infrastructure Engineer','Full-Stack Web Developer','Open Source Enthusiast'];
+let ri = 0, ci = 0, del = false;
+const rtEl = document.getElementById('rt');
+function type() {
+  const word = roles[ri];
+  if (!del) {
+    rtEl.textContent = word.slice(0, ++ci);
+    if (ci === word.length) { del = true; setTimeout(type, 1800); return; }
+  } else {
+    rtEl.textContent = word.slice(0, --ci);
+    if (ci === 0) { del = false; ri = (ri + 1) % roles.length; }
+  }
+  setTimeout(type, del ? 45 : 80);
+}
+setTimeout(type, 1600);
+</script>
 </body>
-
 </html>
-
