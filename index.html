@@ -272,147 +272,8 @@
       </div>
     </div>
   </section>
-</html>
-/* =============================================
-   SHUBHAM GUPTA — PORTFOLIO v2.0
-   Advanced Interactive JavaScript
-    }, 1800 + i * 400);
-  });
-  // ===================== SKILL ORBIT ANIMATION =====================
-  (function () {
-    const container = document.querySelector('.skills-orbit-container');
-    if (!container) return;
-  // ===================== SKILLS BENTO INTERACTIONS =====================
-    const skillNames = ['AWS', 'Docker', 'React', 'Jenkins', 'Node', 'Git', 'Terraform', 'Linux'];
-    const colors = ['var(--accent)', 'var(--accent2)', 'var(--accent3)', 'var(--accent)', 'var(--accent2)', 'var(--accent3)', 'var(--accent4)', 'var(--accent)'];
-  // Tab filtering
-  const skillsTabs = document.querySelectorAll('.skills-tab');
-  const bentoCards = document.querySelectorAll('.bento-card[data-skill-category]');
-    skillNames.forEach((name, i) => {
-      const orb = document.createElement('div');
-      orb.style.cssText = `
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 44px;
-        height: 44px;
-        margin: -22px 0 0 -22px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: 'DM Mono', monospace;
-        font-size: 0.52rem;
-        letter-spacing: 0.05em;
-        color: ${colors[i]};
-        background: rgba(${i % 2 === 0 ? '0,212,255' : '0,255,157'}, 0.06);
-        border: 1px solid rgba(${i % 2 === 0 ? '0,212,255' : '0,255,157'}, 0.15);
-        border-radius: 50%;
-        z-index: 1;
-        font-weight: 500;
-        pointer-events: none;
-      `;
-      orb.textContent = name;
-  skillsTabs.forEach((tab) => {
-    tab.addEventListener('click', () => {
-      skillsTabs.forEach((t) => t.classList.remove('active'));
-      tab.classList.add('active');
-      const angle = (i / skillNames.length) * Math.PI * 2;
-      const radius = 80;
-      const speed = 0.3 + Math.random() * 0.2;
-      const category = tab.dataset.category;
-      function animateOrb() {
-        const time = Date.now() * 0.001 * speed;
-        const x = Math.cos(angle + time) * radius;
-        const y = Math.sin(angle + time) * (radius * 0.5);
-        orb.style.transform = `translate(${x}px, ${y}px)`;
-        requestAnimationFrame(animateOrb);
-      }
-      animateOrb();
-      container.appendChild(orb);
-      bentoCards.forEach((card) => {
-        if (category === 'all' || card.dataset.skillCategory === category) {
-          card.classList.remove('hidden-skill');
-          card.style.animation = 'fadeUp 0.4s ease forwards';
-        } else {
-          card.classList.add('hidden-skill');
-        }
-      });
-    });
-  });
-    // Orbit rings
-    for (let r = 0; r < 2; r++) {
-      const ring = document.createElement('div');
-      const size = 160 + r * 60;
-      ring.style.cssText = `
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: ${size}px;
-        height: ${size * 0.5}px;
-        margin-top: ${-size * 0.25}px;
-        margin-left: ${-size / 2}px;
-        border: 1px solid rgba(0, 212, 255, 0.06);
-        border-radius: 50%;
-        pointer-events: none;
-      `;
-      container.appendChild(ring);
-    }
-  })();
-  // Animated progress rings
-  const ringObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) {
-          // Animate ring fills
-          e.target.querySelectorAll('.ring-fill').forEach((ring) => {
-            const percent = parseFloat(ring.dataset.percent);
-            const offset = 100 - percent;
-            ring.style.strokeDashoffset = offset;
-          });
-          // Animate bento-sm-fill bars
-          e.target.querySelectorAll('.bento-sm-fill').forEach((bar) => {
-            bar.style.width = bar.dataset.width + '%';
-          });
-          // Animate language bars
-          e.target.querySelectorAll('.bento-lang-fill').forEach((bar) => {
-            bar.style.width = bar.dataset.width + '%';
-          });
-          ringObserver.unobserve(e.target);
-        }
-      });
-    },
-    { threshold: 0.15 }
-  );
-  document.querySelectorAll('.skills-bento').forEach((el) => ringObserver.observe(el));
-  // Skills summary counters
-  const skillsSummaryObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) {
-          e.target.querySelectorAll('.skills-summary-num').forEach((counter) => {
-            const target = parseFloat(counter.dataset.count);
-            const duration = 1400;
-            const startTime = performance.now();
-            function update(currentTime) {
-              const elapsed = currentTime - startTime;
-              const progress = Math.min(elapsed / duration, 1);
-              const eased = 1 - Math.pow(1 - progress, 3);
-              counter.textContent = Math.floor(eased * target);
-              if (progress < 1) requestAnimationFrame(update);
-            }
-            requestAnimationFrame(update);
-          });
-          skillsSummaryObserver.unobserve(e.target);
-        }
-      });
-    },
-    { threshold: 0.5 }
-  );
-  document.querySelectorAll('.skills-summary').forEach((el) => skillsSummaryObserver.observe(el));
-  // ===================== SMOOTH PARALLAX =====================
-  let ticking = false;
-  window.addEventListener('scroll', () => {
-})();
+
+<style>
 /* =============================================
    SHUBHAM GUPTA — PORTFOLIO v2.0
    Premium Dark Theme with Advanced Effects
@@ -968,3 +829,150 @@
 /* ---- PRINT STYLES ---- */
   }
 }
+
+</style>
+
+<script>
+/* =============================================
+   SHUBHAM GUPTA — PORTFOLIO v2.0
+   Advanced Interactive JavaScript
+    }, 1800 + i * 400);
+  });
+  // ===================== SKILL ORBIT ANIMATION =====================
+  (function () {
+    const container = document.querySelector('.skills-orbit-container');
+    if (!container) return;
+  // ===================== SKILLS BENTO INTERACTIONS =====================
+    const skillNames = ['AWS', 'Docker', 'React', 'Jenkins', 'Node', 'Git', 'Terraform', 'Linux'];
+    const colors = ['var(--accent)', 'var(--accent2)', 'var(--accent3)', 'var(--accent)', 'var(--accent2)', 'var(--accent3)', 'var(--accent4)', 'var(--accent)'];
+  // Tab filtering
+  const skillsTabs = document.querySelectorAll('.skills-tab');
+  const bentoCards = document.querySelectorAll('.bento-card[data-skill-category]');
+    skillNames.forEach((name, i) => {
+      const orb = document.createElement('div');
+      orb.style.cssText = `
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 44px;
+        height: 44px;
+        margin: -22px 0 0 -22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'DM Mono', monospace;
+        font-size: 0.52rem;
+        letter-spacing: 0.05em;
+        color: ${colors[i]};
+        background: rgba(${i % 2 === 0 ? '0,212,255' : '0,255,157'}, 0.06);
+        border: 1px solid rgba(${i % 2 === 0 ? '0,212,255' : '0,255,157'}, 0.15);
+        border-radius: 50%;
+        z-index: 1;
+        font-weight: 500;
+        pointer-events: none;
+      `;
+      orb.textContent = name;
+  skillsTabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      skillsTabs.forEach((t) => t.classList.remove('active'));
+      tab.classList.add('active');
+      const angle = (i / skillNames.length) * Math.PI * 2;
+      const radius = 80;
+      const speed = 0.3 + Math.random() * 0.2;
+      const category = tab.dataset.category;
+      function animateOrb() {
+        const time = Date.now() * 0.001 * speed;
+        const x = Math.cos(angle + time) * radius;
+        const y = Math.sin(angle + time) * (radius * 0.5);
+        orb.style.transform = `translate(${x}px, ${y}px)`;
+        requestAnimationFrame(animateOrb);
+      }
+      animateOrb();
+      container.appendChild(orb);
+      bentoCards.forEach((card) => {
+        if (category === 'all' || card.dataset.skillCategory === category) {
+          card.classList.remove('hidden-skill');
+          card.style.animation = 'fadeUp 0.4s ease forwards';
+        } else {
+          card.classList.add('hidden-skill');
+        }
+      });
+    });
+  });
+    // Orbit rings
+    for (let r = 0; r < 2; r++) {
+      const ring = document.createElement('div');
+      const size = 160 + r * 60;
+      ring.style.cssText = `
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: ${size}px;
+        height: ${size * 0.5}px;
+        margin-top: ${-size * 0.25}px;
+        margin-left: ${-size / 2}px;
+        border: 1px solid rgba(0, 212, 255, 0.06);
+        border-radius: 50%;
+        pointer-events: none;
+      `;
+      container.appendChild(ring);
+    }
+  })();
+  // Animated progress rings
+  const ringObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          // Animate ring fills
+          e.target.querySelectorAll('.ring-fill').forEach((ring) => {
+            const percent = parseFloat(ring.dataset.percent);
+            const offset = 100 - percent;
+            ring.style.strokeDashoffset = offset;
+          });
+          // Animate bento-sm-fill bars
+          e.target.querySelectorAll('.bento-sm-fill').forEach((bar) => {
+            bar.style.width = bar.dataset.width + '%';
+          });
+          // Animate language bars
+          e.target.querySelectorAll('.bento-lang-fill').forEach((bar) => {
+            bar.style.width = bar.dataset.width + '%';
+          });
+          ringObserver.unobserve(e.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+  document.querySelectorAll('.skills-bento').forEach((el) => ringObserver.observe(el));
+  // Skills summary counters
+  const skillsSummaryObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.querySelectorAll('.skills-summary-num').forEach((counter) => {
+            const target = parseFloat(counter.dataset.count);
+            const duration = 1400;
+            const startTime = performance.now();
+            function update(currentTime) {
+              const elapsed = currentTime - startTime;
+              const progress = Math.min(elapsed / duration, 1);
+              const eased = 1 - Math.pow(1 - progress, 3);
+              counter.textContent = Math.floor(eased * target);
+              if (progress < 1) requestAnimationFrame(update);
+            }
+            requestAnimationFrame(update);
+          });
+          skillsSummaryObserver.unobserve(e.target);
+        }
+      });
+    },
+    { threshold: 0.5 }
+  );
+  document.querySelectorAll('.skills-summary').forEach((el) => skillsSummaryObserver.observe(el));
+  // ===================== SMOOTH PARALLAX =====================
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+})();
+
+</script>
+</html>
